@@ -2,7 +2,7 @@ package conversion
 
 import (
 	"fmt"
-	"godev/vendor/github.com/goinggo/mapstructure"
+	"github.com/goinggo/mapstructure"
 )
 
 type Person struct {

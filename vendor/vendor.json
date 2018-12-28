@@ -1,0 +1,105 @@
+{
+	"comment": "",
+	"ignore": "test",
+	"package": [
+		{
+			"checksumSHA1": "vwNjR8772Pqs8z9ZdPFoatNI9Kg=",
+			"origin": "godev/vendor/github.com/deckarep/golang-set",
+			"path": "github.com/deckarep/golang-set",
+			"revision": "422f0184f5b6b1a10c5210f29f640bf587055fcc",
+			"revisionTime": "2018-12-28T04:27:22Z"
+		},
+		{
+			"checksumSHA1": "6atR+t4aMVKculfOXtFQNq3l8BQ=",
+			"origin": "godev/vendor/github.com/go-xorm/builder",
+			"path": "github.com/go-xorm/builder",
+			"revision": "422f0184f5b6b1a10c5210f29f640bf587055fcc",
+			"revisionTime": "2018-12-28T04:27:22Z"
+		},
+		{
+			"checksumSHA1": "COnttajcyxQ700jx0i2FmcE1lD4=",
+			"origin": "godev/vendor/github.com/go-xorm/core",
+			"path": "github.com/go-xorm/core",
+			"revision": "422f0184f5b6b1a10c5210f29f640bf587055fcc",
+			"revisionTime": "2018-12-28T04:27:22Z"
+		},
+		{
+			"checksumSHA1": "XzAFr2c7RpCudWletcKKXVz+ACU=",
+			"origin": "godev/vendor/github.com/go-xorm/xorm",
+			"path": "github.com/go-xorm/xorm",
+			"revision": "422f0184f5b6b1a10c5210f29f640bf587055fcc",
+			"revisionTime": "2018-12-28T04:27:22Z"
+		},
+		{
+			"checksumSHA1": "lSy6AYcBQIHtzhfjNrmKzHJygdo=",
+			"origin": "godev/vendor/github.com/goinggo/mapstructure",
+			"path": "github.com/goinggo/mapstructure",
+			"revision": "422f0184f5b6b1a10c5210f29f640bf587055fcc",
+			"revisionTime": "2018-12-28T04:27:22Z"
+		},
+		{
+			"checksumSHA1": "EaxdFn5vS9xdaJKDE29pPBs6lZA=",
+			"origin": "godev/vendor/github.com/mattn/go-oci8",
+			"path": "github.com/mattn/go-oci8",
+			"revision": "422f0184f5b6b1a10c5210f29f640bf587055fcc",
+			"revisionTime": "2018-12-28T04:27:22Z"
+		},
+		{
+			"checksumSHA1": "lzxr2rdWylya6Z5Ft4oA0Fvr4TU=",
+			"origin": "godev/vendor/gopkg.in/bsm/ratelimit.v1",
+			"path": "gopkg.in/bsm/ratelimit.v1",
+			"revision": "422f0184f5b6b1a10c5210f29f640bf587055fcc",
+			"revisionTime": "2018-12-28T04:27:22Z"
+		},
+		{
+			"checksumSHA1": "SPIlcnhp57fmsD8mejIaOLFtmpI=",
+			"origin": "godev/vendor/gopkg.in/redis.v4",
+			"path": "gopkg.in/redis.v4",
+			"revision": "422f0184f5b6b1a10c5210f29f640bf587055fcc",
+			"revisionTime": "2018-12-28T04:27:22Z"
+		},
+		{
+			"checksumSHA1": "u24d3wK+Otp3+nu3wSQOMqhg+N8=",
+			"origin": "godev/vendor/gopkg.in/redis.v4/internal",
+			"path": "gopkg.in/redis.v4/internal",
+			"revision": "422f0184f5b6b1a10c5210f29f640bf587055fcc",
+			"revisionTime": "2018-12-28T04:27:22Z"
+		},
+		{
+			"checksumSHA1": "l+1jiOGUyjHP0u0mB+KiT/UHVcY=",
+			"origin": "godev/vendor/gopkg.in/redis.v4/internal/consistenthash",
+			"path": "gopkg.in/redis.v4/internal/consistenthash",
+			"revision": "422f0184f5b6b1a10c5210f29f640bf587055fcc",
+			"revisionTime": "2018-12-28T04:27:22Z"
+		},
+		{
+			"checksumSHA1": "XxoAGEMN5ZCJJ3FeDMSTVhvscHg=",
+			"origin": "godev/vendor/gopkg.in/redis.v4/internal/errors",
+			"path": "gopkg.in/redis.v4/internal/errors",
+			"revision": "422f0184f5b6b1a10c5210f29f640bf587055fcc",
+			"revisionTime": "2018-12-28T04:27:22Z"
+		},
+		{
+			"checksumSHA1": "6XSNzBg5bzd2TjEfC/q41tPT/Zg=",
+			"origin": "godev/vendor/gopkg.in/redis.v4/internal/hashtag",
+			"path": "gopkg.in/redis.v4/internal/hashtag",
+			"revision": "422f0184f5b6b1a10c5210f29f640bf587055fcc",
+			"revisionTime": "2018-12-28T04:27:22Z"
+		},
+		{
+			"checksumSHA1": "fYkMv2BMIeHKM1VirUzJ7A/jG7w=",
+			"origin": "godev/vendor/gopkg.in/redis.v4/internal/pool",
+			"path": "gopkg.in/redis.v4/internal/pool",
+			"revision": "422f0184f5b6b1a10c5210f29f640bf587055fcc",
+			"revisionTime": "2018-12-28T04:27:22Z"
+		},
+		{
+			"checksumSHA1": "BGzuM8ZpMCmTKWnb/3CtrV4OwDU=",
+			"origin": "godev/vendor/gopkg.in/redis.v4/internal/proto",
+			"path": "gopkg.in/redis.v4/internal/proto",
+			"revision": "422f0184f5b6b1a10c5210f29f640bf587055fcc",
+			"revisionTime": "2018-12-28T04:27:22Z"
+		}
+	],
+	"rootPath": "tjtools"
+}
