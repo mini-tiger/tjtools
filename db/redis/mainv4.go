@@ -1,4 +1,5 @@
 package redis
+
 import (
 	"gopkg.in/redis.v4"
 	"sync"
@@ -13,11 +14,11 @@ type RedisS struct {
 	Conn *redis.Client
 }
 
-func main()  {
-	r,_:=CreateClient(0,"192.168.43.11:6379","Root1q2w")
+func main() {
+	r, _ := CreateClient(0, "192.168.43.11:6379", "Root1q2w")
 	var RR RedisS
 	RR.Conn = r
-	RR.StringSet("key",1)
+	RR.StringSet("key", 1)
 }
 
 // 创建 redis 客户端
@@ -70,7 +71,7 @@ func (c *RedisS) StringGet(key string) (val string, err error) {
 	//fmt.Println("name", val)
 }
 
-func (c *RedisS) SetJson(key string, value interface{}, ex time.Duration)(err error) {
+func (c *RedisS) SetJson(key string, value interface{}, ex time.Duration) (err error) {
 	client := c.Conn
 
 	b, err := json.Marshal(value)
@@ -95,7 +96,7 @@ func (c *RedisS) SetJson(key string, value interface{}, ex time.Duration)(err er
 }
 
 //
-func (c *RedisS) GetJson(key string ,h interface{}) (err error){
+func (c *RedisS) GetJson(key string, h interface{}) (err error) {
 	client := c.Conn
 
 	c.Lock()
@@ -170,4 +171,61 @@ func (c *RedisS) SetRemMember(key, appname string, ex time.Duration) bool {
 		return false
 	}
 	return true
+}
+
+func (c *RedisS) PubChan(chanName ,value string) (err error) {
+	c.Lock()
+	defer c.Unlock()
+	redisdb := c.Conn
+	//var pubsub *redis.PubSub
+	//pubsub,_ = redisdb.Subscribe("mychannel1")
+
+	// Wait for confirmation that subscription is created before publishing anything.
+	//_, err = pubsub.Receive() // 等待发布订阅通道完成
+	//if err != nil {
+	//	panic(err)
+	//}
+
+	err = redisdb.Publish(chanName,value).Err()
+	if err!=nil{
+		return err
+	}
+
+	//time.AfterFunc(time.Second, func() {
+	//	// When pubsub is closed channel is closed too.
+	//	_ = pubsub.Close()
+	//})
+
+	//go func() { //消费者
+	//	// Consume messages.
+	//	for {
+	//		//pubsub,_ := redisdb.Subscribe("mychannel1")
+	//		//message,_:=pubsub.ReceiveMessage()
+	//		//log.Println(message.Channel,message.Payload)
+	//		//log.Println(message.String())
+	//		//time.Sleep(time.Duration(10)*time.Second) )
+	//	}
+	//
+	//}()
+	return nil
+}
+
+func (c *RedisS)SubChan(chanName string) (value string,err error) {
+	c.Lock()
+	defer c.Unlock()
+
+	redisdb := c.Conn
+	var pubsub *redis.PubSub
+	pubsub,err = redisdb.Subscribe(chanName)
+	if err!=nil{
+		return
+	}
+	_, err = pubsub.Receive() // 等待发布订阅通道完成
+	if err != nil {
+		return
+	}
+
+	message,_:=pubsub.ReceiveMessage()
+	fmt.Println(message.Channel,message.Pattern,message.Payload,message.String())
+	return message.String(),nil
 }
