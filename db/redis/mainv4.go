@@ -6,7 +6,6 @@ import (
 	"time"
 	"encoding/json"
 
-	"fmt"
 )
 
 type RedisS struct {
@@ -75,7 +74,7 @@ func (c *RedisS) SetJson(key string, value interface{}, ex time.Duration) (err e
 	client := c.Conn
 
 	b, err := json.Marshal(value)
-	fmt.Println(string(b))
+	//fmt.Println(string(b))
 	if err != nil {
 		//logger.Printf("key %s convert json faile data:%+v,err:%s\n", key, value, err)
 		return
