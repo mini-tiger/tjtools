@@ -1,7 +1,6 @@
 package redis
-
 import (
-	"godev/vendor/gopkg.in/redis.v4"
+	"gopkg.in/redis.v4"
 	"sync"
 	"time"
 	"encoding/json"
@@ -12,6 +11,13 @@ import (
 type RedisS struct {
 	sync.RWMutex
 	Conn *redis.Client
+}
+
+func main()  {
+	r,_:=CreateClient(0,"192.168.43.11:6379","Root1q2w")
+	var RR RedisS
+	RR.Conn = r
+	RR.StringSet("key",1)
 }
 
 // 创建 redis 客户端
