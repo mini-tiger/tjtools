@@ -173,7 +173,7 @@ func (c *RedisS) SetRemMember(key, appname string, ex time.Duration) bool {
 	return true
 }
 
-func (c *RedisS) PubChan(chanName ,value string) (err error) {
+func (c *RedisS) PubChan(chanName, value string) (err error) {
 	c.Lock()
 	defer c.Unlock()
 	redisdb := c.Conn
@@ -186,8 +186,8 @@ func (c *RedisS) PubChan(chanName ,value string) (err error) {
 	//	panic(err)
 	//}
 
-	err = redisdb.Publish(chanName,value).Err()
-	if err!=nil{
+	err = redisdb.Publish(chanName, value).Err()
+	if err != nil {
 		return err
 	}
 
@@ -210,14 +210,21 @@ func (c *RedisS) PubChan(chanName ,value string) (err error) {
 	return nil
 }
 
-func (c *RedisS)SubChan(chanName string) (value string,err error) {
+func (c *RedisS) SubChan(chanName string) (message *redis.Message, err error) {
 	c.Lock()
 	defer c.Unlock()
 
 	redisdb := c.Conn
 	var pubsub *redis.PubSub
-	pubsub,err = redisdb.Subscribe(chanName)
-	if err!=nil{
+
+	//err = pubsub.Ping(chanName)
+	//if err != nil {
+	//	return
+	//}
+
+	pubsub, err = redisdb.Subscribe(chanName)
+
+	if err != nil {
 		return
 	}
 	_, err = pubsub.Receive() // 等待发布订阅通道完成
@@ -225,7 +232,11 @@ func (c *RedisS)SubChan(chanName string) (value string,err error) {
 		return
 	}
 
-	message,_:=pubsub.ReceiveMessage()
-	fmt.Println(message.Channel,message.Pattern,message.Payload,message.String())
-	return message.String(),nil
+	message, err = pubsub.ReceiveMessage()
+	if err != nil {
+		return
+	}
+	pubsub.Close()
+	//fmt.Println(message.Channel,message.Pattern,message.Payload,message.String())
+	return message, nil
 }
