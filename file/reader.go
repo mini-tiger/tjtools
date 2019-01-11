@@ -1,9 +1,10 @@
 package file
 
 import (
-	"strings"
-	"io/ioutil"
 	"bufio"
+	"io/ioutil"
+	"os"
+	"strings"
 )
 
 func ToTrimString(filePath string) (string, error) {
@@ -31,4 +32,8 @@ func ReadLine(r *bufio.Reader) ([]byte, error) {
 	}
 
 	return line, err
+}
+func IsExist(fp string) bool {
+	_, err := os.Stat(fp)
+	return err == nil || os.IsExist(err)
 }

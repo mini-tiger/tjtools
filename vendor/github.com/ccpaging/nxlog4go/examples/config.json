@@ -1,0 +1,44 @@
+{
+	"LogConfig" : {
+		"filters": [
+		{
+		  "tag": "color",
+		  "level": "INFO",
+		  "properties": [
+			{
+			  "name": "pattern",
+			  "value": "[%T] [%L] (%s) %M%R"
+			}
+		  ]
+		},
+		{
+		  "tag": "file",
+		  "level": "FINEST",
+		  "properties": [
+			{
+			  "name": "filename",
+			  "value": "_test.log"
+			},
+			{
+			  "name": "pattern",
+			  "value": "[%D %T] [%L] (%s) %M%R"
+			}
+		  ]
+		},
+		{
+		  "tag": "socket",
+		  "level": "SILENT",
+		  "properties": [
+			{
+			  "name": "protocol",
+			  "value": "udp"
+			},
+			{
+			  "name": "endpoint",
+			  "value": "127.0.0.1:12124"
+			}
+		  ]
+		}
+		]
+	}
+}
