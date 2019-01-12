@@ -6,9 +6,8 @@ import (
 	"github.com/pkg/sftp"
 	"golang.org/x/crypto/ssh"
 	"io/ioutil"
-	"log"
 	"os"
-	"path/filepath"
+	"path"
 	"time"
 )
 
@@ -16,19 +15,20 @@ import (
 //	sftpClient *sftp.Client
 //)
 
-func SftpUpload(passwd, host, sFile, dFile string) (err error) {
+func SftpUpload(host, passwd, sFile, dFile string) (err error) {
 
 	//start := time.Now()
 	sftpClient, err := connect("root", passwd, host, 22) //远程链接打开
 	if err != nil {
-		log.Fatal(err)
+		//log.Fatal(err)
+		return
 	}
 	defer sftpClient.Close()
 
-	_, err = sftpClient.Stat(filepath.Dir(dFile)) //远程目录确认状态是否存在
+	_, err = sftpClient.Stat(path.Dir(dFile)) //远程目录确认状态是否存在
 	if err != nil {
 		//log.Fatal("/tmp/" + " remote path not exists!")\
-		err = errors.New(fmt.Sprintf(" remote path %s not exists,err:%s", dFile, err))
+		err = errors.New(fmt.Sprintf(" remote path %s not exists,err:%s", path.Dir(dFile), err))
 		return
 	}
 
@@ -56,7 +56,7 @@ func connect(user, password, host string, port int) (*sftp.Client, error) {
 	clientConfig = &ssh.ClientConfig{
 		User:            user,
 		Auth:            auth,
-		Timeout:         30 * time.Second,
+		Timeout:         10 * time.Second,
 		HostKeyCallback: ssh.InsecureIgnoreHostKey(), //ssh.FixedHostKey(hostKey),
 	}
 
