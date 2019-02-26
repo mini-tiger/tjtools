@@ -6,6 +6,8 @@ import (
 	"io"
 	"fmt"
 	"bytes"
+	"strings"
+	"regexp"
 )
 
 
@@ -66,16 +68,27 @@ func StrTrims(ss string) (d string,e error)  {
 				return
 			}
 		}
+		str = strings.Replace(str, string(byte(13)), "", -1) // 去除所有win 回车
+		str = strings.Replace(str, string(byte(8)), "", -1)  //去除所有退格
 
-		if 0 == len(str) || str == "\r\n" {
+		//if 0 == len(str) || str == "\r\n" {
+		//	continue
+		//}
+		if 1 == len(str) && (str == "\n" || str == "\r") {
 			continue
 		}
-		if 1 == len(str) && (str == "\n" || str == "\r"){
-			//fmt.Println(str)
-			continue
-		}
 
-		//fmt.Print(str)
+		re := regexp.MustCompile("\\s{2,}?")
+		str = re.ReplaceAllString(str, "")
+
+		sl := strings.Count(str, string(byte(10))) //超过2 个换行，保留一个，其它删除
+
+		if sl < 1 {
+			str = str + string(byte(10))
+		}
+		//fmt.Println(str)
+		//fmt.Println(1)
+		//fmt.Println([]byte(str))
 		dest.WriteString(str)
 	}
 	return dest.String(),nil
