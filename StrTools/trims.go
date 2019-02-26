@@ -70,7 +70,7 @@ func StrTrims(ss string) (d string,e error)  {
 		if 0 == len(str) || str == "\r\n" {
 			continue
 		}
-		if 1 == len(str) || str == "\n" {
+		if 1 == len(str) || str == "\r" {
 			continue
 		}
 		//fmt.Print(str)
