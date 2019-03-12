@@ -127,13 +127,13 @@ func (c *RedisS) Expire(key string, time time.Duration) bool {
 
 }
 
-func (c *RedisS) SetAdd(key, val string) (bool) {
+func (c *RedisS) SetAdd(key string, val ...interface{}) (bool) {
 
 	client := c.Conn
 
 	c.Lock()
 	defer c.Unlock()
-	i := client.SAdd(key, val)
+	i := client.SAdd(key, val...)
 	//fmt.Println("=================",i.Val())
 	if i.Val() == 1 { // 1代表成功添加，里面没有此UUID,
 		//log.Printf("uuid:%s, 任务ID:%s 加入redis 任务组合 成功！", val, key)
@@ -146,7 +146,7 @@ func (c *RedisS) SetAdd(key, val string) (bool) {
 
 }
 
-func (c *RedisS) SetInMember(key, val string) (bool) {
+func (c *RedisS) SetInMember(key string, val interface{}) (bool) {
 	client := c.Conn
 
 	c.Lock()
@@ -157,16 +157,14 @@ func (c *RedisS) SetInMember(key, val string) (bool) {
 
 }
 
-func (c *RedisS) SetRemMember(key, appname string, ex time.Duration) bool {
+func (c *RedisS) SetRemMember(key string, value ...interface{}) bool {
 	client := c.Conn
 
 	c.Lock()
 	defer c.Unlock()
-	//err := client.Set("name", "xys", time.Duration(10)*time.Second).Err()
 
-	err := client.SRem(key, appname).Err()
+	err := client.SRem(key, value...).Err()
 	if err != nil {
-		//log.Printf("uuid %s 存入redis app_Set 失败 data:%+v, ERR: %s\n", key, appname, err)
 		return false
 	}
 	return true
