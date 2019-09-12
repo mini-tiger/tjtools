@@ -1,8 +1,8 @@
 package oracle
 
 import (
-	_ "godev/vendor/github.com/mattn/go-oci8"
-	"godev/vendor/github.com/go-xorm/xorm"
+	_ "github.com/mattn/go-oci8"
+	"github.com/go-xorm/xorm"
 	"os"
 )
 
