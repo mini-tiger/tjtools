@@ -80,7 +80,7 @@ func InitLog1(logfile string, maxDays int) *nxlog.Logger {
 	// Get a new logger instance
 	// todo FINEST 级别最低
 	// todo %p prefix, %N 行号
-	logge = nxlog.New(nxlog.FINEST).SetOutput(ww).SetPattern("%P [%Y %T] [%L] (%S LineNo:%N) %M\n")
+	logge = nxlog.New(nxlog.FINEST).SetOutput(ww).SetPattern("%P [%Y %T] [%L] (%s LineNo:%N) %M\n")
 	//Log.SetPrefix("11111")
 	logge.SetLevel(1)
 
