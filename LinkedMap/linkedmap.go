@@ -5,6 +5,7 @@ import (
 	"sync"
 )
 
+// 有序MAP 不建议超过2000个key
 type LinkedMap struct {
 	sync.RWMutex
 	MData map[string]interface{}
