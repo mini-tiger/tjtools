@@ -65,8 +65,7 @@ func InitLog1(logfile string, maxDays int) *nxlog.Logger {
 	rfw := nxlog.NewRotateFileWriter(fileName, true)
 	rfw.SetOption("daily", true)
 	rfw.SetOption("maxbackup", maxDays)
-	Logge.SetOption("caller",true)
-	Logge.SetOption("color",true)
+
 	var ww io.Writer
 
 	ww = io.MultiWriter(os.Stdout, rfw) //todo 同时输出到rfw 与 系统输出
@@ -80,6 +79,8 @@ func InitLog1(logfile string, maxDays int) *nxlog.Logger {
 	// todo %p prefix, %N 行号
 	Logge = nxlog.New(os.Stdout, "", 7)
 	Logge.SetOutput(ww)
+	Logge.SetOption("caller",true)
+	Logge.SetOption("color",true)
 	//Logge.SetOption("prefix","this is prefix")
 	//Logge.SetLayout(nxlog.NewPatternLayout("%P %Y %T [%L] (%s LineNo:%N) %M"))
 	Logge.SetLayout(nxlog.NewPatternLayout("%Y %T [%L] (%s LineNo:%N) %M"))
