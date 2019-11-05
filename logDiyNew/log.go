@@ -11,32 +11,7 @@ import (
 var (
 	Logge *nxlog.Logger
 )
-//var logger *Log1
-//var lock = new(sync.RWMutex)
 
-//type Log1 struct{}
-
-//func (l *Log1) Printf(arg0 ...interface{}) {
-//	logge.Info(arg0...)
-//}
-//func (l *Log1) Error(arg0 ...interface{}) error {
-//	logge.SetOption("head", "[error]")
-//	return logge.Error(arg0...)
-//}
-//
-////
-//func (l *Log1) Debug(arg0 ...interface{}) {
-//	logge.Debug(arg0...)
-//}
-//
-//func (l *Log1) Fatalln(m ...interface{}) {
-//	logge.Error(m)
-//	os.Exit(1)
-//}
-//func (l *Log1) Fatalf(arg0 interface{}, args ...interface{}) {
-//	logge.Error(arg0, args)
-//	os.Exit(1)
-//}
 
 func WLog(str string) { // 在配置文件没有加载，日志方法没有生效前，写入日志
 	f, err1 := os.OpenFile("run.log", os.O_CREATE|os.O_SYNC|os.O_WRONLY|os.O_APPEND, 0666)
@@ -54,7 +29,7 @@ func WLog(str string) { // 在配置文件没有加载，日志方法没有生�
 
 func InitLog1(logfile string, maxDays int) *nxlog.Logger {
 	//fileName := Config().Logfile
-	fileName := logfile
+	//fileName := logfile
 	//logFile, err := os.Create(fileName)
 	//if err != nil {
 	//	log.Fatalln("open file error !")
@@ -62,7 +37,7 @@ func InitLog1(logfile string, maxDays int) *nxlog.Logger {
 
 	nxlog.FileFlushDefault = 5 // 修改默认写入硬盘时间
 	//nxlog.LogCallerDepth = 3                                                        //runtime.caller(3)  日志触发上报的层级
-	rfw := nxlog.NewRotateFileWriter(fileName, true)
+	rfw := nxlog.NewRotateFileWriter(logfile, true)
 	rfw.SetOption("daily", true)
 	rfw.SetOption("maxbackup", maxDays)
 
