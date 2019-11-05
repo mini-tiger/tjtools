@@ -63,8 +63,10 @@ func InitLog1(logfile string, maxDays int) *nxlog.Logger {
 	nxlog.FileFlushDefault = 5 // 修改默认写入硬盘时间
 	//nxlog.LogCallerDepth = 3                                                        //runtime.caller(3)  日志触发上报的层级
 	rfw := nxlog.NewRotateFileWriter(fileName, true)
-	rfw.SetOption("daily", true);
-	rfw.SetOption("maxbackup", maxDays);
+	rfw.SetOption("daily", true)
+	rfw.SetOption("maxbackup", maxDays)
+	Logge.SetOption("caller",true)
+	Logge.SetOption("color",true)
 	var ww io.Writer
 
 	ww = io.MultiWriter(os.Stdout, rfw) //todo 同时输出到rfw 与 系统输出
@@ -79,7 +81,8 @@ func InitLog1(logfile string, maxDays int) *nxlog.Logger {
 	Logge = nxlog.New(os.Stdout, "", 7)
 	Logge.SetOutput(ww)
 	//Logge.SetOption("prefix","this is prefix")
-	Logge.SetLayout(nxlog.NewPatternLayout("%P; %Y %T [%L] (%s LineNo:%N) %M"))
+	//Logge.SetLayout(nxlog.NewPatternLayout("%P %Y %T [%L] (%s LineNo:%N) %M"))
+	Logge.SetLayout(nxlog.NewPatternLayout("%Y %T [%L] (%s LineNo:%N) %M"))
 	//logge.Info("read config file ,successfully") // 走到这里代表配置文件已经读取成功
 	//logge.Info("日志文件最多保存%d天", Config().LogMaxDays)
 	//logge.Info("logging on %s", fileName)
