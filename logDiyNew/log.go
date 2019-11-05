@@ -78,7 +78,7 @@ func InitLog1(logfile string, maxDays int) *nxlog.Logger {
 	// todo %p prefix, %N 行号
 	Logge = nxlog.New(os.Stdout, "", 7)
 	Logge.SetOutput(ww)
-	Logge.SetOption("prefix","this is prefix")
+	//Logge.SetOption("prefix","this is prefix")
 	Logge.SetLayout(nxlog.NewPatternLayout("%P; %Y %T [%L] (%s LineNo:%N) %M"))
 	//logge.Info("read config file ,successfully") // 走到这里代表配置文件已经读取成功
 	//logge.Info("日志文件最多保存%d天", Config().LogMaxDays)
