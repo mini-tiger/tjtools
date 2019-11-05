@@ -76,7 +76,7 @@ func InitLog1(logfile string, maxDays int) *nxlog.Logger {
 
 	// Get a new logger instance
 	// todo FINEST 级别最低
-	// todo %p prefix, %N 行号
+	// todo %P prefix, %N 行号
 	Logge = nxlog.New(os.Stdout, "", 7)
 	Logge.SetOutput(ww)
 	Logge.SetOption("caller",true)
