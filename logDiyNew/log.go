@@ -12,7 +12,6 @@ var (
 	Logge *nxlog.Logger
 )
 
-
 func WLog(str string) { // 在配置文件没有加载，日志方法没有生效前，写入日志
 	f, err1 := os.OpenFile("run.log", os.O_CREATE|os.O_SYNC|os.O_WRONLY|os.O_APPEND, 0666)
 	defer f.Close()
@@ -27,7 +26,7 @@ func WLog(str string) { // 在配置文件没有加载，日志方法没有生�
 
 }
 
-func InitLog1(logfile string, maxDays int) *nxlog.Logger {
+func InitLog1(logfile string, maxDays int, color bool) *nxlog.Logger {
 	//fileName := Config().Logfile
 	//fileName := logfile
 	//logFile, err := os.Create(fileName)
@@ -54,8 +53,8 @@ func InitLog1(logfile string, maxDays int) *nxlog.Logger {
 	// todo %P prefix, %N 行号
 	Logge = nxlog.New(os.Stdout, "", 7)
 	Logge.SetOutput(ww)
-	Logge.SetOption("caller",true)
-	Logge.SetOption("color",true)
+	Logge.SetOption("caller", true)
+	Logge.SetOption("color", color)
 	//Logge.SetOption("prefix","this is prefix")
 	//Logge.SetLayout(nxlog.NewPatternLayout("%P %Y %T [%L] (%s LineNo:%N) %M"))
 	Logge.SetLayout(nxlog.NewPatternLayout("%Y %T [%L] (%s LineNo:%N) %M"))
