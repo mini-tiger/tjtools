@@ -26,7 +26,7 @@ func WLog(str string) { // 在配置文件没有加载，日志方法没有生�
 
 }
 
-func InitLog1(logfile string, maxDays int, color bool) *nxlog.Logger {
+func InitLog1(logfile string, maxDays int, color bool,level string) *nxlog.Logger {
 	//fileName := Config().Logfile
 	//fileName := logfile
 	//logFile, err := os.Create(fileName)
@@ -55,6 +55,7 @@ func InitLog1(logfile string, maxDays int, color bool) *nxlog.Logger {
 	Logge.SetOutput(ww)
 	Logge.SetOption("caller", true)
 	Logge.SetOption("color", color)
+	Logge.SetOption("level",level)
 	//Logge.SetOption("prefix","this is prefix")
 	//Logge.SetLayout(nxlog.NewPatternLayout("%P %Y %T [%L] (%s LineNo:%N) %M"))
 	Logge.SetLayout(nxlog.NewPatternLayout("%Y %T [%L] (%s LineNo:%N) %M"))
