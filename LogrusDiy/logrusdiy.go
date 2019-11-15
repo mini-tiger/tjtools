@@ -1,4 +1,4 @@
-package utils
+package LogrusDiy
 
 import (
 	"errors"
