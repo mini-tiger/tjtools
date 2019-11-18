@@ -38,14 +38,14 @@ import (
 
 
 
-//var filesPool = sync.Pool{
-//	New: func() interface{} {
-//		b := make([]string, 0)
-//		return &b
-//	},
-//}
+var filesPool = sync.Pool{
+	New: func() interface{} {
+		b := make([]string, 0)
+		return &b
+	},
+}
 
-func GetFileList(path string,filesPool sync.Pool) (*[]string, error) {
+func GetFileList(path string) (*[]string, error) {
 	//files := make([]string, 0)
 	files := filesPool.Get().(*[]string)
 	f, err := os.Stat(path)
