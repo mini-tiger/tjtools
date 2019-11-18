@@ -2,6 +2,8 @@ package file
 
 import (
 	"bufio"
+	"errors"
+	"github.com/toolkits/file"
 	"io/ioutil"
 	"os"
 	"strings"
@@ -36,4 +38,15 @@ func ReadLine(r *bufio.Reader) ([]byte, error) {
 func IsExist(fp string) bool {
 	_, err := os.Stat(fp)
 	return err == nil || os.IsExist(err)
+}
+
+func GetFatherDir(sf string) (string, error) {
+	if !IsExist(sf) {
+		return "", errors.New(sf + "Not Exist")
+	}
+	dirList := strings.Split(sf, string(os.PathSeparator))
+	if len(dirList) <= 1 {
+		return sf, nil
+	}
+	return strings.Join(dirList[0:len(dirList)-1], string(os.PathSeparator)), nil
 }
