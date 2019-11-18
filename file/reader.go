@@ -3,7 +3,6 @@ package file
 import (
 	"bufio"
 	"errors"
-	"github.com/toolkits/file"
 	"io/ioutil"
 	"os"
 	"strings"
