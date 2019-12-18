@@ -41,13 +41,13 @@ import (
 var filesPool = sync.Pool{
 	New: func() interface{} {
 		b := make([]string, 0)
-		return &b
+		return b
 	},
 }
 
-func GetFileList(path string) (*[]string, error) {
+func GetFileList(path string) ([]string, error) {
 	//files := make([]string, 0)
-	files := filesPool.Get().(*[]string)
+	files := filesPool.Get().([]string)
 	f, err := os.Stat(path)
 	if err != nil {
 		return files, errors.New(fmt.Sprintf("path: %s ,Err:%s", path, err))
@@ -63,7 +63,7 @@ func GetFileList(path string) (*[]string, error) {
 		if f.IsDir() {
 			return nil
 		}
-		*files = append(*files, path)
+		files = append(files, path)
 		return nil
 	})
 	if err != nil {
