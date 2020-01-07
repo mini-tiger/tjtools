@@ -40,8 +40,7 @@ import (
 
 var filesPool = sync.Pool{
 	New: func() interface{} {
-		b := make([]string, 0)
-		return b
+		return  make([]string, 0)
 	},
 }
 
