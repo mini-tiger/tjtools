@@ -17,7 +17,7 @@ package utils
 //	d, h, m, s = GetTime(sinter)
 //	fmt.Printf("%d天%d小时%d分钟%d秒", d, h, m, s)
 //}
-var Day, interval, num ,h,m,s uint64
+var Day, interval,h,m,s uint64
 
 
 func GetCurrentTime() (*uint64, *uint64, *uint64, *uint64) {
@@ -45,10 +45,10 @@ func oneDay()  { // 一天内的小时分钟
 }
 
 func getBasic(sinter uint64, tt uint64) { // 是否不足1天, 有几天, 减去天数后的时间差
-	if num = sinter / tt; num > 0 {
-		interval = sinter - (num * tt)
+	if Day = sinter / tt; Day > 0 {
+		interval = sinter - (Day * tt)
 	} else {
-		num = 0
+		Day = 0
 		interval = sinter
 	}
 
