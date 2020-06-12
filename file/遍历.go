@@ -55,6 +55,14 @@ func Clearfiles() {
 	files = files[0:0]
 }
 
+func Cleanfiles() {
+	syncFile.Lock()
+	defer func() {
+		syncFile.Unlock()
+	}()
+	files = nil
+}
+
 func GetFileList(path *string) (err error) {
 	//files := make([]string, 0)
 	//tfiles := filesPool.Get().([]string)
