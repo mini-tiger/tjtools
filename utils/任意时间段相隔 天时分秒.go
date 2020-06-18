@@ -17,39 +17,61 @@ package utils
 //	d, h, m, s = GetTime(sinter)
 //	fmt.Printf("%d天%d小时%d分钟%d秒", d, h, m, s)
 //}
-var Day, interval,h,m,s uint64
-
-
-func GetCurrentTime() (*uint64, *uint64, *uint64, *uint64) {
-	return &Day, &h, &m, &s
+const daySec=86400
+var Sl *sync.RWMutex = new(sync.RWMutex)
+type TimeCount struct {
+	Day, Interval, H, M, S uint64
 }
 
-func GetTime(sinter int64) {
-	getBasic(uint64(sinter), 86400)
+var TimeCountFree = sync.Pool{
+	New: func() interface{} {
+		return &TimeCount{}
+	},
+}
 
-	oneDay()
 
-	s = uint64(sinter) - (Day * 86400) - (h * 3600) - (m * 60)
+func (t *TimeCount) GetCurrentTime() *TimeCount {
+	Sl.Lock()
+	defer Sl.Unlock()
+	return t
+}
+
+func (t *TimeCount) ComputeTime(sinter int64) {
+	t.getBasic(uint64(sinter))
+
+	t.oneDay()
+
+	//s = uint64(sinter) - (Day * 86400) - (h * 3600) - (m * 60)
+	atomic.StoreUint64(&t.S,uint64(sinter) - (t.Day * 86400) - (t.H * 3600) - (t.M * 60))
 
 }
 
-func oneDay()  { // 一天内的小时分钟
-	h = interval / 3600
-	if h == 0 {
-		m = interval / 60
+func (t *TimeCount) oneDay() { // 一天内的小时分钟
+	atomic.StoreUint64(&t.H,t.Interval / 3600)
+	//t.H = t.Interval / 3600
+	if t.H == 0 {
+		//t.M = t.Interval / 60
+		atomic.StoreUint64(&t.M,t.Interval / 60)
 	} else {
-		interval = interval - (3600 * h)
-		m = interval / 60
+		//t.Interval = t.Interval - (3600 * t.H)
+		atomic.StoreUint64(&t.Interval,t.Interval - (3600 * t.H))
+		//t.M = t.Interval / 60
+		atomic.StoreUint64(&t.M,t.Interval / 60)
 	}
 
 }
 
-func getBasic(sinter uint64, tt uint64) { // 是否不足1天, 有几天, 减去天数后的时间差
-	if Day = sinter / tt; Day > 0 {
-		interval = sinter - (Day * tt)
+func  (t *TimeCount)getBasic(sinter uint64) { // 是否不足1天, 有几天, 减去天数后的时间差
+	if t.Day = sinter / daySec; t.Day > 0 {
+		//interval = sinter - (Day * tt)
+		atomic.StoreUint64(&t.Interval,sinter - (t.Day * daySec))
 	} else {
-		Day = 0
-		interval = sinter
+		//Day = 0
+		atomic.StoreUint64(&t.Day,0)
+		//interval = sinter
+		atomic.StoreUint64(&t.Interval,sinter)
 	}
 
 }
+
+
