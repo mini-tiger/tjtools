@@ -105,3 +105,4 @@ func  (s *SelectFiles)GetFileList() (err error) {
 	//}
 	//fmt.Printf("%p\n",tfiles)
 	return nil
+}
