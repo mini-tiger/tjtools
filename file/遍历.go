@@ -35,40 +35,44 @@ import (
 //	return files, nil
 //}
 
-
-
 var FSL = new(sync.RWMutex)
+
 type SelectFiles struct {
 	Files []string
-	Path string
+	Path  string
 }
+
 var SelectFilesFree = sync.Pool{
 	New: func() interface{} {
 		return &SelectFiles{}
 	},
 }
+
 //var files []string = make([]string, 0, 1<<13) // 不超过8192,可以重复利用
 //var syncFile *sync.Mutex = new(sync.Mutex)
 
-func (s *SelectFiles)GetFiles() []string {
+func (s *SelectFiles) GetFiles() []string {
 	FSL.RLock()
 	defer FSL.RUnlock()
 
 	return s.Files
 }
-func (s *SelectFiles)Clearfiles() {
+func (s *SelectFiles) Clearfiles() {
 	FSL.Lock()
 	defer FSL.Unlock()
 	s.Files = s.Files[0:0]
 }
 
-func (s *SelectFiles)Cleanfiles() {
+func (s *SelectFiles) Cleanfiles() {
 	FSL.Lock()
 	defer FSL.Unlock()
 	s.Files = nil
 }
+func (s *SelectFiles) Len() uint64 {
+	return uint64(len(s.Files))
+}
 
-func  (s *SelectFiles)GetFileList() (err error) {
+func (s *SelectFiles) GetFileList() (err error) {
 	//files := make([]string, 0)
 	//tfiles := filesPool.Get().([]string)
 
