@@ -26,7 +26,7 @@ func WLog(str string) { // 在配置文件没有加载，日志方法没有生�
 
 }
 
-func InitLog1(logfile string, maxDays int, color bool, level string, std bool) *nxlog.Logger {
+func InitLog1(logfile string, maxDays int, color bool, level string, stdout bool) *nxlog.Logger {
 	nxlog.FileFlushDefault = 5
 
 	rfw := nxlog.NewRotateFileWriter(logfile, true)
@@ -34,7 +34,7 @@ func InitLog1(logfile string, maxDays int, color bool, level string, std bool) *
 	_ = rfw.SetOption("maxbackup", maxDays)
 
 	var ww io.Writer
-	if std {
+	if stdout {
 		ww = io.MultiWriter(os.Stdout, rfw) //todo 同时输出到rfw 与 系统输出
 	} else {
 		ww = rfw //todo 同时输出到rfw 与 系统输出
