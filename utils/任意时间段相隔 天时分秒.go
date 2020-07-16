@@ -21,6 +21,7 @@ const daySec=86400
 var Sl *sync.RWMutex = new(sync.RWMutex)
 type TimeCount struct {
 	Day, Interval, H, M, S uint64
+	Sinter uint64
 }
 
 var TimeCountFree = sync.Pool{
@@ -36,13 +37,13 @@ func (t *TimeCount) GetCurrentTime() *TimeCount {
 	return t
 }
 
-func (t *TimeCount) ComputeTime(sinter int64) {
-	t.getBasic(uint64(sinter))
+func (t *TimeCount) ComputeTime() {
+	t.getBasic()
 
 	t.oneDay()
 
 	//s = uint64(sinter) - (Day * 86400) - (h * 3600) - (m * 60)
-	atomic.StoreUint64(&t.S,uint64(sinter) - (t.Day * 86400) - (t.H * 3600) - (t.M * 60))
+	atomic.StoreUint64(&t.S,t.Sinter - (t.Day * 86400) - (t.H * 3600) - (t.M * 60))
 
 }
 
@@ -61,15 +62,15 @@ func (t *TimeCount) oneDay() { // 一天内的小时分钟
 
 }
 
-func  (t *TimeCount)getBasic(sinter uint64) { // 是否不足1天, 有几天, 减去天数后的时间差
-	if t.Day = sinter / daySec; t.Day > 0 {
+func  (t *TimeCount)getBasic() { // 是否不足1天, 有几天, 减去天数后的时间差
+	if t.Day = t.Sinter / daySec; t.Day > 0 {
 		//interval = sinter - (Day * tt)
-		atomic.StoreUint64(&t.Interval,sinter - (t.Day * daySec))
+		atomic.StoreUint64(&t.Interval,t.Sinter - (t.Day * daySec))
 	} else {
 		//Day = 0
 		atomic.StoreUint64(&t.Day,0)
 		//interval = sinter
-		atomic.StoreUint64(&t.Interval,sinter)
+		atomic.StoreUint64(&t.Interval,t.Sinter)
 	}
 
 }
