@@ -2,7 +2,7 @@ package logDiyNew
 
 import (
 	"fmt"
-	nxlog "github.com/ccpaging/nxlog4go"
+	nxlog "github.com/ccpaging/nxlog4go" //0.94
 	"io"
 	"os"
 	"time"
