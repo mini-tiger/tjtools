@@ -6,7 +6,6 @@ import (
 	"os"
 	"path/filepath"
 	"sync"
-	"time"
 )
 
 //func GetFileList(path string) ([]string, error) {
@@ -35,41 +34,41 @@ import (
 //	}
 //	return files, nil
 //}
-
-func main() {
-	for{
-
-		aa:=FilesFree.Get().(*Files)
-		//aa:=NewFilesStruct("/home/go/GoDevEach/works/haifei/syncHtml_test8/htmlData/")
-		aa.Path="/home/go/GoDevEach/works/haifei/syncHtml_test8/htmlData/"
-		_ = aa.ScanningFiles()
-		FilesFree.Put(aa)
-		fmt.Printf("%d,%p,%p\n",aa.Size(),aa,aa.FileAbs)
-		aa=nil
-		time.Sleep(1*time.Second)
-	}
-
-	//for {
-	//
-	//	path := "/home/go/GoDevEach/works/haifei/syncHtml_test8/htmlData/"
-	//	_ = file.GetFileList(&path) // 遍历目录 包括子目录
-	//	fmt.Printf("%d,%p\n", len(file.GetFiles()), file.GetFiles())
-	//
-	//
-	//	if len(file.GetFiles()) > 0 {
-	//		//var h = OnceHtmlFusionFiles.Get().(*modules.HtmlFusionFiles)
-	//		//debug.SetGCPercent(100)
-	//
-	//		file.Clearfiles()
-	//
-	//	}
-	//	fmt.Printf("%d,%p\n", len(file.GetFiles()), file.GetFiles())
-	//
-	//	//}
-	//	time.Sleep(time.Duration(1 * time.Second))
-	//}
-
-}
+//
+//func main() {
+//	for{
+//
+//		aa:=FilesFree.Get().(*Files)
+//		//aa:=NewFilesStruct("/home/go/GoDevEach/works/haifei/syncHtml_test8/htmlData/")
+//		aa.Path="/home/go/GoDevEach/works/haifei/syncHtml_test8/htmlData/"
+//		_ = aa.ScanningFiles()
+//		FilesFree.Put(aa)
+//		fmt.Printf("%d,%p,%p\n",aa.Size(),aa,aa.FileAbs)
+//		aa=nil
+//		time.Sleep(1*time.Second)
+//	}
+//
+//	//for {
+//	//
+//	//	path := "/home/go/GoDevEach/works/haifei/syncHtml_test8/htmlData/"
+//	//	_ = file.GetFileList(&path) // 遍历目录 包括子目录
+//	//	fmt.Printf("%d,%p\n", len(file.GetFiles()), file.GetFiles())
+//	//
+//	//
+//	//	if len(file.GetFiles()) > 0 {
+//	//		//var h = OnceHtmlFusionFiles.Get().(*modules.HtmlFusionFiles)
+//	//		//debug.SetGCPercent(100)
+//	//
+//	//		file.Clearfiles()
+//	//
+//	//	}
+//	//	fmt.Printf("%d,%p\n", len(file.GetFiles()), file.GetFiles())
+//	//
+//	//	//}
+//	//	time.Sleep(time.Duration(1 * time.Second))
+//	//}
+//
+//}
 
 type Files struct {
 	sync.RWMutex

@@ -1,7 +1,6 @@
 package file
 
 import (
-	"fmt"
 	"os"
 	"syscall"
 )
@@ -19,6 +18,7 @@ func CheckDirPerm(filePath string) (err error) {
 	}
 	return nil
 }
-func main() {
-	fmt.Println(CheckDirPerm("/root"))
-}
+
+//func main() {
+//	fmt.Println(CheckDirPerm("/root"))
+//}
