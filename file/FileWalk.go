@@ -153,11 +153,5 @@ func (fi *Files) ScanningFiles() (err error) {
 		err = errors.New(fmt.Sprintf("path: %s ,err:%s", fi.Path, err))
 		return err
 	}
-
-	//fmt.Printf("%+v,%d\n",tfiles,len(tfiles))
-	//if len(files) > 0 {
-	//	return err
-	//}
-	//fmt.Printf("%p\n",tfiles)
 	return nil
 }
