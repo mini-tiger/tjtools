@@ -73,9 +73,6 @@ func (s *SelectFiles) Len() uint64 {
 }
 
 func (s *SelectFiles) GetFileList() (err error) {
-	//files := make([]string, 0)
-	//tfiles := filesPool.Get().([]string)
-
 	f, err := os.Stat(s.Path)
 	if err != nil {
 		err = errors.New(fmt.Sprintf("path: %s ,Err:%s", s.Path, err))
@@ -103,10 +100,5 @@ func (s *SelectFiles) GetFileList() (err error) {
 		return err
 	}
 
-	//fmt.Printf("%+v,%d\n",tfiles,len(tfiles))
-	//if len(files) > 0 {
-	//	return err
-	//}
-	//fmt.Printf("%p\n",tfiles)
 	return nil
 }
