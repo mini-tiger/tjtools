@@ -6,7 +6,7 @@ import (
 	"syscall"
 )
 
-func checkDirPerm(filePath string) (err error) {
+func CheckDirPerm(filePath string) (err error) {
 
 	var file os.FileInfo
 	file, err = os.Stat(filePath)
@@ -22,5 +22,5 @@ func checkDirPerm(filePath string) (err error) {
 	return nil
 }
 func main() {
-	fmt.Println(checkDirPerm("/root"))
+	fmt.Println(CheckDirPerm("/root"))
 }
