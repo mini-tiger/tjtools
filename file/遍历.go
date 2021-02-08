@@ -3,41 +3,17 @@ package file
 import (
 	"errors"
 	"fmt"
+	//nsema "gitee.com/taojun319/tjtools/control"
 	"os"
 	"path/filepath"
 	"sync"
+	//"time"
 )
 
-//func GetFileList(path string) ([]string, error) {
-//	files := make([]string, 0)
-//
-//	f, err := os.Stat(path)
-//	if err != nil {
-//		return files, errors.New(fmt.Sprintf("path: %s ,Err:%s", path, err))
-//	}
-//	if !f.IsDir() {
-//		return files, errors.New(fmt.Sprintf("path: %s ,Not Dir", path))
-//	}
-//
-//	err = filepath.Walk(path, func(path string, f os.FileInfo, err error) error {
-//		if f == nil {
-//			return err
-//		}
-//		if f.IsDir() {
-//			return nil
-//		}
-//		files = append(files, path)
-//		return nil
-//	})
-//	if err != nil {
-//		return files, errors.New(fmt.Sprintf("path: %s ,err:%s", path, err))
-//	}
-//	return files, nil
-//}
-
-var FSL = new(sync.RWMutex)
+//var FSL = new(sync.RWMutex)
 
 type SelectFiles struct {
+	sync.RWMutex
 	Files []string
 	Path  string
 }
@@ -52,20 +28,20 @@ var SelectFilesFree = sync.Pool{
 //var syncFile *sync.Mutex = new(sync.Mutex)
 
 func (s *SelectFiles) GetFiles() []string {
-	FSL.RLock()
-	defer FSL.RUnlock()
+	s.RLock()
+	defer s.RUnlock()
 
 	return s.Files
 }
 func (s *SelectFiles) Clearfiles() {
-	FSL.Lock()
-	defer FSL.Unlock()
+	s.Lock()
+	defer s.Unlock()
 	s.Files = s.Files[0:0]
 }
 
 func (s *SelectFiles) Cleanfiles() {
-	FSL.Lock()
-	defer FSL.Unlock()
+	s.Lock()
+	defer s.Unlock()
 	s.Files = nil
 }
 func (s *SelectFiles) Len() uint64 {
@@ -82,9 +58,9 @@ func (s *SelectFiles) GetFileList() (err error) {
 		err = errors.New(fmt.Sprintf("path: %s ,Not Dir", s.Path))
 		return err
 	}
-	FSL.Lock()
-	defer FSL.Unlock()
-
+	s.Lock()
+	defer s.Unlock()
+	s.Files = make([]string, 0)
 	err = filepath.Walk(s.Path, func(path string, f os.FileInfo, err error) error {
 		if f == nil {
 			return err
@@ -102,3 +78,45 @@ func (s *SelectFiles) GetFileList() (err error) {
 
 	return nil
 }
+
+//
+//var FilesChan1 chan *SelectFiles = make(chan *SelectFiles, 0)
+//var sema2 *nsema.Semaphore = nsema.NewSemaphore(2)
+//
+//
+//func main() {
+//
+//
+//	go Revice2()
+//	go Push2()
+//
+//	select {}
+//}
+//
+//func push22()  {
+//	rr := new(SelectFiles)
+//	rr.Path="/home/go/src/godev/内存"
+//	_ = rr.GetFileList()
+//	FilesChan1<-rr
+//}
+//
+//func Push2() {
+//
+//	for {
+//		push22()
+//		time.Sleep(10*time.Second)
+//	}
+//
+//}
+//
+//func Revice2() {
+//	for {
+//		select {
+//		case sa2 := <-FilesChan1:
+//			sema2.Acquire()
+//			sa2.GetFiles()
+//			//Clear(sa2)
+//			sema2.Release()
+//		}
+//	}
+//}
