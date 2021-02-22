@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"godev/vendor/github.com/deckarep/golang-set"
+	mapset "github.com/deckarep/golang-set"
 )
 
 type A struct {
